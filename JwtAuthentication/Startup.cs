@@ -24,8 +24,8 @@ namespace JwtAuthentication
            })
            .AddJwtBearer(options =>
            {
-               options.SaveToken = false;
-               options.RequireHttpsMetadata = false;
+               options.SaveToken = false;  
+               options.RequireHttpsMetadata = false;   // Default true // Use false ONLY for DEVELOPMENT
                options.TokenValidationParameters = new TokenValidationParameters()
                {
                    ValidAudience = "yourdomain.com",
@@ -66,6 +66,7 @@ namespace JwtAuthentication
                };
            });
 
+            // Createing Policy for POLICY based Authorization
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("ManagerPolicy", policyBuilder =>
@@ -85,6 +86,7 @@ namespace JwtAuthentication
                 app.UseDeveloperExceptionPage();
             }
 
+            // Unhandled error catch middleware
             app.Use(async (context, next) =>
           {
               try
@@ -97,6 +99,7 @@ namespace JwtAuthentication
               }
           });
 
+            // Middleware gets called when response status code is between 400 - 599
             app.UseStatusCodePages(async statusCodeContext =>
            {
                if (statusCodeContext.HttpContext.Response.StatusCode == 401)
