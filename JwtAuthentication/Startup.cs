@@ -16,6 +16,7 @@ namespace JwtAuthentication
         {
 
             var key = System.Text.Encoding.ASCII.GetBytes("TestKey1234567845454545454545454545454");
+
             services.AddAuthentication(options =>
            {
                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
